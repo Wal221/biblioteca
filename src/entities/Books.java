@@ -182,7 +182,7 @@ public class Books extends Obrass implements Dao {
     public void gravar() {
 
         try {
-            FileWriter writer = new FileWriter("src/Biblio/testar/livros",true);
+            FileWriter writer = new FileWriter("src/arquivos/livros",true);
             writer.write( titulo + "\n" );
             writer.close();
             System.out.println("livro cadastrado");

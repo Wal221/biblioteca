@@ -37,7 +37,7 @@ public class Professor extends Usuario {
     @Override
     public void gravar() {
         String caminho;
-        File arquivo = new File("C://Users//Administrador//POO2.0//src//Biblio//pessoas//professor"+getNome()+".txt");
+        File arquivo = new File("C://Users//Administrador//biblioteca//src//arquivos"+getNome()+".txt");
 
         try {
             arquivo.createNewFile();

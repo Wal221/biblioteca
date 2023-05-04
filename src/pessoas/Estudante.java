@@ -1,6 +1,8 @@
 package pessoas;
 
 
+import entities.Emprestimos;
+
 import java.io.*;
 
 public class Estudante extends Usuario {
@@ -30,9 +32,8 @@ public class Estudante extends Usuario {
     public void gravar() throws IOException {
         int i = 0;
         String caminho;
-        File arquivo = new File("C://Users//Administrador//POO2.0//src//Biblio//pessoas//" +
+        File arquivo = new File("C://Users//Administrador//biblioteca//src//arquivos" +
                 "estudante" + getNome() + ".txt");
-
 
                     if( i > 3) {
 
