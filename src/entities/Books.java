@@ -8,7 +8,7 @@ import repository.Dao;
 import java.io.*;
 
 
-public class Books extends Obrass implements Dao {
+public class Books extends Obrass implements Dao, Serializable {
     private String autores;
     private String area;
     private String editora;
@@ -19,6 +19,9 @@ public class Books extends Obrass implements Dao {
 
     public Books(){
 
+    }
+    public Books(String titulo){
+        this.titulo = titulo;
     }
 
 
@@ -35,9 +38,8 @@ public class Books extends Obrass implements Dao {
 
     }
 
-    public Books(String titulo) {
-        this.titulo = titulo;
-    }
+
+
 
     public boolean isEmprestimo() {
         return emprestimo;

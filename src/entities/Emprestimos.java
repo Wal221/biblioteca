@@ -1,12 +1,17 @@
 package entities;
 
 
+import pessoas.Estudante;
 import repository.Dao;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Emprestimos implements Dao {
 
+
+    private List<Books> livros = new ArrayList<>();
 
     private Date dataDoEmprestimo;
 
@@ -46,6 +51,8 @@ public class Emprestimos implements Dao {
 
     @Override
     public void gravar() {
+
+
 
     }
 
