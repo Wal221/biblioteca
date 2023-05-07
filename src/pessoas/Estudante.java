@@ -77,6 +77,7 @@ public class Estudante extends Usuario {
     @Override
     public void ler() {
 
+
     }
 
     @Override
@@ -84,18 +85,6 @@ public class Estudante extends Usuario {
 
     }
 
-    public void gravaEmprestismo() {
-        try {
-            FileWriter writer = new FileWriter("src/arquivos/Emprestimos", true);
-            writer.write("Nome: " + getNome() + "\n" + "Titulo do livro: " + getBooks() + "\n" + "Data: "
-                    + getEmprestimos());
-            writer.close();
-            System.out.println("livro cadastrado");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-
-    }
 }
 

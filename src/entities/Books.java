@@ -160,7 +160,7 @@ public class Books extends Obrass implements Dao, Serializable {
       * ja que não sabemos o numero exato de linhas disponiveis
       */
     public int numberLinhas() throws IOException {
-        LineNumberReader lnr = new LineNumberReader(new FileReader("src/Biblio/testar/livros"));
+        LineNumberReader lnr = new LineNumberReader(new FileReader("src/arquivos/biblioteca"));
         lnr.skip(Long.MAX_VALUE);
         int retorno = lnr.getLineNumber();
         return retorno;
@@ -183,7 +183,7 @@ public class Books extends Obrass implements Dao, Serializable {
     @Override
     public void gravar() {
         try {
-            FileWriter writer = new FileWriter("src/arquivos/livros",true);
+            FileWriter writer = new FileWriter("src/arquivos/biblioteca",true);
             writer.write( titulo + "\n" );
             writer.close();
             System.out.println("livro cadastrado");
@@ -200,11 +200,31 @@ public class Books extends Obrass implements Dao, Serializable {
 
     @Override
     public void ler() {
-        System.out.println("Usuario lendo livro ");
+        try{
+            FileReader arq = new FileReader("src/arquivos/biblioteca");
+            BufferedReader lerArq = new BufferedReader(arq);
+
+            String linha = lerArq.readLine();
+            while (linha != null){
+                System.out.printf("%s\n", linha);
+
+                linha = lerArq.readLine();
+
+            }
+            arq.close();
+        }catch (IOException e){
+            System.out.println("Erro na abertura do arquivo");
+            e.getMessage();
+
+        }
+        System.out.println();
     }
+
+
 
     @Override
     public void atualizar() {
 
     }
+
 }

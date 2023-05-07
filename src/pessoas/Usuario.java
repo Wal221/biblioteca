@@ -110,17 +110,20 @@ public abstract class Usuario extends Pessoa implements Dao {
         }
     }
 
-    public void pegaLivros(String nomeLivro, Estudante estudante) throws IOException {
-        int a = numberLivros("src/Biblio/testar/livros");
+    public void pegaLivros(String nomeLivro) throws IOException {
+        int a = numberLivros("src/arquivos/biblioteca");
 
         for (int i = 0; i < a; i++) {
             Books aux = new Books();
-            aux.setTitulo((Files.readAllLines(Paths.get("src/Biblio/testar/livros")).get(i)));
+            aux.setTitulo((Files.readAllLines(Paths.get("src/arquivos/biblioteca")).get(i)));
 
             if (aux.getTitulo().equalsIgnoreCase(nomeLivro)) {
                 System.out.println("o nome digitado a no arquivo ");
-                estudante.addBook(aux);
-                estudante.gravar();
+                addBook(aux);
+                //gravo o livro pegado pelo aluno em sua lista
+                gravar();
+                //e gravo na lista de emprestimos tambem
+                gravaEmprestismo();
 
             }
 
@@ -140,5 +143,18 @@ public abstract class Usuario extends Pessoa implements Dao {
             e.printStackTrace();
 
         }
+    }
+    public void gravaEmprestismo() {
+        try {
+            FileWriter writer = new FileWriter("src/arquivos/Emprestimos", true);
+            writer.write("Nome: " + getNome() + "\n" + "Titulo do livro: " + getBooks() + "\n" + "Data: "
+                    + getEmprestimos());
+            writer.close();
+            System.out.println("livro cadastrado");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
