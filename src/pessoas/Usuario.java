@@ -59,7 +59,7 @@ public abstract class Usuario extends Pessoa implements Dao {
         return books;
     }
 
-    public void addBook(Books livros) {
+    public void addBook(Books livros) throws IOException {
         books.add(livros);
     }
 
@@ -94,15 +94,15 @@ public abstract class Usuario extends Pessoa implements Dao {
     public void gravar() throws IOException {
 
         String caminho;
-        File arquivo = new File("");
+        File arquivo = new File("C://Users//Administrador//biblioteca//src//arquivos//usuario"+getNome()+".txt");
 
         try {
             arquivo.createNewFile();
             caminho = arquivo.getPath();
             System.out.print("Arquivo criado com sucesso!");
 
-            FileWriter writer = new FileWriter(caminho, true);
-            writer.write("\n");
+            FileWriter writer = new FileWriter(caminho,true);
+            writer.write(  "Nome: "+getNome()+ "\n" + "Titulo: " +getBooks()+ "\n" );
             writer.close();
 
         } catch (IOException e) {
@@ -145,15 +145,7 @@ public abstract class Usuario extends Pessoa implements Dao {
         }
     }
     public void gravaEmprestismo() {
-        try {
-            FileWriter writer = new FileWriter("src/arquivos/Emprestimos", true);
-            writer.write("Nome: " + getNome() + "\n" + "Titulo do livro: " + getBooks() + "\n" + "Data: "
-                    + getEmprestimos());
-            writer.close();
-            System.out.println("livro cadastrado");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
 
     }
