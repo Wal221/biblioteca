@@ -67,8 +67,7 @@ public class Emprestimos implements Dao , Serializable {
     @Override
     public void gravar() throws IOException {
 
-        ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream("src/arquivos/"+usuario.getNome()+
-                ".txt"));
+        ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream("src/arquivos/emprestimo.txt"));
         objectOutput.writeObject(this.usuario);
         objectOutput.close();
 
@@ -81,9 +80,8 @@ public class Emprestimos implements Dao , Serializable {
 
     @Override
     public void ler() throws IOException, ClassNotFoundException {
-        ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream( "src/arquivos/"+usuario.getNome()+
-                ".txt"));
-        Usuario usuario1 = (Estudante)objectInput.readObject();
+        ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream( "src/arquivos/emprestimo.txt"));
+        Usuario usuario1 = (Usuario) objectInput.readObject();
         objectInput.close();
         System.out.println(usuario1);
 

@@ -2,10 +2,9 @@ package pessoas;
 
 import entities.Emprestimos;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-public class Funcionario extends Usuario {
+import java.io.*;
+
+public class Funcionario extends Usuario implements Serializable {
    private String sexo;
    private String email;
 
@@ -28,7 +27,12 @@ public class Funcionario extends Usuario {
     }
 
     @Override
-    public void ler() {
+    public void ler() throws IOException, ClassNotFoundException {
+        ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream( "src/arquivos/"+getNome()+".txt"));
+        Usuario usuario1 = (Usuario) objectInput.readObject();
+        objectInput.close();
+        System.out.println(usuario1);
+
 
     }
 
@@ -38,21 +42,23 @@ public class Funcionario extends Usuario {
     }
 
     @Override
-    public void gravar() {
-        String caminho;
-        File arquivo = new File("C://Users//Administrador//POO2.0//src//Biblio//pessoas//funcionario"+getNome()+".txt");
+    public void gravar() throws IOException {
+        ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream("src/arquivos/"+getNome()+".txt"));
+        objectOutput.writeObject("Nome: "+getNome() + "Livro: "+ getBooks());
+        System.out.println("Livro gravado");
+        objectOutput.close();
 
-        try {
-            arquivo.createNewFile();
-            caminho = arquivo.getPath();
-            System.out.print("Arquivo criado com sucesso!");
+    }
 
-            FileWriter writer = new FileWriter(caminho,true);
-            writer.write(  "Nome: "+getNome()+ "\n" + "Titulo: " +getBooks()+ "\n" );
-            writer.close();
+    @Override
+    public String toString() {
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StringBuilder estu = new StringBuilder();
+        estu.append("nome: " + getNome() + "\n");
+        estu.append("idade: " + getIdade() + "\n");
+        estu.append("cpf: " +getCpf()+ "\n");
+        estu.append("Titulo Livro: "+ getBooks() + "\n");
+
+        return estu.toString();
     }
 }

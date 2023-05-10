@@ -3,9 +3,8 @@ package pessoas;
 
 import entities.Emprestimos;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+
 public class Professor extends Usuario {
     private String curso;
     private String tipo;
@@ -25,7 +24,12 @@ public class Professor extends Usuario {
     }
 
     @Override
-    public void ler() {
+    public void ler() throws IOException, ClassNotFoundException {
+        ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream( "src/arquivos/"+getNome()+".txt"));
+        Usuario usuario1 = (Usuario) objectInput.readObject();
+        objectInput.close();
+        System.out.println(usuario1);
+
 
     }
 
@@ -35,21 +39,11 @@ public class Professor extends Usuario {
     }
 
     @Override
-    public void gravar() {
-        String caminho;
-        File arquivo = new File("C://Users//Administrador//biblioteca//src//arquivos"+getNome()+".txt");
+    public void gravar() throws IOException {
+        ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream("src/arquivos/"+getNome()+".txt"));
+        objectOutput.writeObject("Nome: "+getNome() + "Livro: "+ getBooks());
+        System.out.println("Livro gravado");
+        objectOutput.close();
 
-        try {
-            arquivo.createNewFile();
-            caminho = arquivo.getPath();
-            System.out.print("Arquivo criado com sucesso!");
-
-            FileWriter writer = new FileWriter(caminho,true);
-            writer.write(  "Nome: "+getNome()+ "\n" + "Titulo: " +getBooks()+ "\n" );
-            writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

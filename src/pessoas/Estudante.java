@@ -1,11 +1,12 @@
 package pessoas;
 
 
+import entities.Books;
 import entities.Emprestimos;
 
 import java.io.*;
 
-public class Estudante extends Usuario {
+public class Estudante extends Usuario implements Serializable {
     private int matricula;
 
     public Estudante(String nome, int idade, String cpf, int matricula, Emprestimos emprestimos) {
@@ -17,6 +18,13 @@ public class Estudante extends Usuario {
 
     }
 
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
+    }
 
     @Override
     public String toString() {
@@ -25,32 +33,11 @@ public class Estudante extends Usuario {
         estu.append("nome: " + getNome() + "\n");
         estu.append("idade: " + getIdade() + "\n");
         estu.append("matricula: " + matricula + "\n");
+        estu.append("Titulo Livro: "+ getBooks());
 
         return estu.toString();
     }
 
-
-    @Override
-    public void gravar() throws IOException {
-        int i = 0;
-        String caminho;
-        File arquivo = new File("C://Users//Administrador//biblioteca//src//arquivos" +
-                "estudante" + getNome() + ".txt");
-        try {
-            arquivo.createNewFile();
-            caminho = arquivo.getPath();
-            System.out.print("Arquivo criado com sucesso!");
-
-            FileWriter writer = new FileWriter(caminho, true);
-            writer.write("Nome: " + getNome() + "\n" + "Titulo: " + getBooks() + "\n" +
-                    "Emprestimo: " + getEmprestimos() + "\n");
-            writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
     /**
@@ -68,6 +55,14 @@ public class Estudante extends Usuario {
         return retorno;
 
     }
+    @Override
+    public void gravar() throws IOException {
+        ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream("src/arquivos/"+getNome()+".txt"));
+        objectOutput.writeObject("Nome: "+getNome() + "Livro: "+ getBooks());
+        System.out.println("Livro gravado");
+        objectOutput.close();
+
+    }
 
     @Override
     public void excluir() {
@@ -75,7 +70,11 @@ public class Estudante extends Usuario {
     }
 
     @Override
-    public void ler() {
+    public void ler() throws IOException, ClassNotFoundException {
+        ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream( "src/arquivos/"+getNome()+".txt"));
+        Usuario usuario1 = (Usuario) objectInput.readObject();
+        objectInput.close();
+        System.out.println(usuario1);
 
 
     }
