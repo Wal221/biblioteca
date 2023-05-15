@@ -4,7 +4,11 @@ package pessoas;
 import entities.Books;
 import entities.Emprestimos;
 
+import javax.swing.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Estudante extends Usuario implements Serializable {
     private int matricula;
@@ -66,6 +70,14 @@ public class Estudante extends Usuario implements Serializable {
 
     @Override
     public void excluir() {
+        Path path = Paths.get("src/arquivos/"+getNome()+".txt"+getCpf());
+        try {
+            Files.delete(path);
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,"Ocorreu um erro ao apagar o arquivo.\nErro: " + e);
+
+        }
 
     }
 
@@ -74,7 +86,9 @@ public class Estudante extends Usuario implements Serializable {
         ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream( "src/arquivos/"+getNome()+".txt"));
         Usuario usuario1 = (Usuario) objectInput.readObject();
         objectInput.close();
+
         System.out.println(usuario1);
+
 
 
     }
